@@ -1,52 +1,49 @@
-# Get-Started PHP
+# Tigris MongoDB compatibility and Python FastAPI example
 
-Repository to help getting started with MongoDB PHP driver connecting to MongoDB Atlas.
+## Introduction
 
-## Information
+Welcome to this [Tigris MongoDB compatibility](https://www.tigrisdata.com/docs/concepts/mongodb-compatibility/) and PHP example app. This repo aims to show a basic example of how you can use the power of Tigris MongoDB compatibility with PHP.
 
-This Get-Started project uses [MongoDB PHP driver](https://docs.mongodb.com/drivers/php/) version 1.9.1 by default. Although you can change the driver version, the provided code example was only tested against the default version of MongoDB driver. There is no guarantee that the code sample will work for all possible versions of the driver. 
+This project uses [MongoDB PHP driver](https://docs.mongodb.com/drivers/php/) version 1.15.0 by default. Although you can change the driver version, the provided code example was only tested against the default version of MongoDB driver.
+Please note that the MongoDB PHP driver consists of two components: the [extension](https://github.com/mongodb/mongo-php-driver) and [library](https://docs.mongodb.com/php-library/current/).
 
-Please note that the MongoDB PHP driver consists of two components, the MongoDB [extension](https://github.com/mongodb/mongo-php-driver) and [library](https://docs.mongodb.com/php-library/current/).
+Tigris MongoDB compatibility supports the MongoDB 6.0+ wire protocol, so any drivers or other components must support this version.
 
+## Prerequisites
 
+- [Docker](https://docs.docker.com/install/)
+- A [Tigris Cloud account](https://console.preview.tigrisdata.cloud/signup) or you can [self-host Tigris](https://www.tigrisdata.com/docs/concepts/platform/self-host/)
 
-## Pre-requisites 
+## Preparing Tigris
 
-### Docker 
+1. Create a project in Tigris.
+1. Create an application key, and copy the Project Name, Client ID, and Client Secret values.
 
-Have Docker running on your machine. You can download and install from: https://docs.docker.com/install/
+Copy the `.env.example` to a `.env` file:
 
-### MongoDB Atlas
-
-In order to execute the code example, you need to specify `MONGODB_URI` environment variable to connect to a MongoDB cluster. If you don't have an existing cluster, you can create one by signing up [MongoDB Atlas Free-tier M0](https://docs.atlas.mongodb.com/getting-started/). 
-
-##  Execution Steps 
-
-Execute the helper shell script followed by the MongoDB URI that you would like to connect to. 
-
-```
-./get-started.sh "mongodb+srv://usr:pwd@example.mongodb.net/dbname?retryWrites=true"
+```sh
+cp .env.example .env
 ```
 
-### Execute commands within the Docker environment 
+And update the values with your Tigris Project Name, Client ID, and Client Secret.
 
-You can invoke a terminal session within the Docker environment using the following command.
-From the top level directory, execute: 
+## Build and run using a new Docker image
+
+```shell
+DOCKER_BUILDKIT=0  docker build . -t tigris-mongodb-php-local
 ```
-docker run -it -v "$(pwd):/workspace/php" -w /workspace/php ghcr.io/mongodb-developer/get-started-php:0.1 "sh"
+
+```shell
+./get-started-local.sh
 ```
 
+## Build and run using the pre-existing Docker image
 
-## Tutorials
+```shell
+./get-started.sh
+```
 
-* [MongoDB PHP Library Tutorial](https://docs.mongodb.com/php-library/current/tutorial/)
-* [QuickStart: Getting Set Up to Run PHP with MongoDB](https://developer.mongodb.com/quickstart/php-setup/)
+## Where next?
 
-## About 
-
-This project is part of the MongoDB Get-Started code examples. Please see [get-started-readme](https://github.com/mongodb-developer/get-started-readme) for more information. 
-
-## Disclaimer
-
-This software is not supported by [MongoDB, Inc](https://www.mongodb.com)
-under any of their commercial support subscriptions or otherwise. Any usage is at your own risk.
+- Find out more about [Tigris MongoDB compatibility](https://www.tigrisdata.com/docs/concepts/mongodb-compatibility/)
+- Join the [Tigris Discord](https://www.tigrisdata.com/discord/)

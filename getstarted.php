@@ -2,11 +2,21 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-echo "Connecting to MongoDB\n";
-$client = new MongoDB\Client($_ENV["MONGODB_URI"]);
-$collection = $client->selectCollection("getstarted", "php");
+echo "Connecting to Tigris: {$_ENV["TIGRIS_URI"]}\n";
 
-echo "Dropping collection 'getstarted.php' (command)\n";
+$client = new MongoDB\Client(
+  $_ENV["TIGRIS_URI"],
+  [
+      'username' => $_ENV["TIGRIS_CLIENT_ID"],
+      'password' => $_ENV["TIGRIS_CLIENT_SECRET"],
+      'authMechanism' => 'PLAIN',
+      'ssl' => true
+  ],
+);
+
+$collection = $client->selectCollection($_ENV["TIGRIS_PROJECT_NAME"], "php");
+
+echo "Dropping collection '{$_ENV["TIGRIS_PROJECT_NAME"]}.php' (command)\n";
 $collection->drop(); 
 
 echo "Inserting a single document\n";
@@ -17,31 +27,39 @@ $insertManyResult = $collection->insertMany([
   [
     'name' => 'MongoDB',
     'type' => 'database',
-    'count' => '1',
+    'count' => 1,
     'info'=>['x'=>201] 
   ],
   [
     'name' => 'MongoDB',
     'type' => 'database',
-    'count' => '1',
+    'count' => 1,
+    'info'=>['x'=>20] 
+  ],
+  [
+    'name' => 'Tigris',
+    'type' => 'database and search platform',
+    'count' => 1,
     'info'=>['x'=>20] 
   ],
 ]);
 printf("Inserted %d document(s)\n", $insertManyResult->getInsertedCount());
 
 echo "Querying using find()\n";
-$result = $collection->find( [ 'type' => 'database'] );
+$regex = new MongoDB\BSON\Regex('database', 'i');
+$result = $collection->find( [ 'type' => $regex ] );
 foreach ($result as $doc) {
   printf("ID: %s, Name: %s\n", $doc['_id'], $doc['name']);
 }
 
 /* Aggregation */
-printf("Aggregation result: \n");
-$result = $collection->aggregate([
-  [ '$group' => ['_id' => 'null', 'total' => ['$sum' => '$info.x'] ] ],
-]);
-foreach ($result as $doc) {
-    var_dump($doc);
-}
-printf("Finished.\n")
+// Aggregation not yet supported with Tigris MongoDB compatibility
+// printf("Aggregation result: \n");
+// $result = $collection->aggregate([
+//   [ '$group' => ['_id' => 'null', 'total' => ['$sum' => '$info.x'] ] ],
+// ]);
+// foreach ($result as $doc) {
+//     var_dump($doc);
+// }
+// printf("Finished.\n")
 ?>

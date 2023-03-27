@@ -1,9 +1,9 @@
 FROM php:7-fpm-alpine
 
-LABEL org.opencontainers.image.source=https://github.com/mongodb-developer/get-started-php
+LABEL org.opencontainers.image.source=https://github.com/tigrisdata-community/tigris-mongodb-php-example
 
-ARG DRIVER_VERSION=1.9.1
-ARG PHPLIB_VERSION=1.8.0
+ARG DRIVER_VERSION=1.15.1
+ARG PHPLIB_VERSION=1.15.0
 
 RUN apk --update add --virtual build-dependencies build-base openssl-dev autoconf \
   && pecl install "mongodb-${DRIVER_VERSION}"\
