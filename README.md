@@ -4,7 +4,7 @@
 
 Welcome to this [Tigris MongoDB compatibility](https://www.tigrisdata.com/docs/concepts/mongodb-compatibility/) and PHP example app. This repo aims to show a basic example of how you can use the power of Tigris MongoDB compatibility with PHP.
 
-This project uses [MongoDB PHP driver](https://docs.mongodb.com/drivers/php/) version 1.15.0 by default. Although you can change the driver version, the provided code example was only tested against the default version of MongoDB driver.
+This project uses [MongoDB PHP driver](https://docs.mongodb.com/drivers/php/) version 1.15 by default. Although you can change the driver version, the provided code example was only tested against the default version of MongoDB driver.
 Please note that the MongoDB PHP driver consists of two components: the [extension](https://github.com/mongodb/mongo-php-driver) and [library](https://docs.mongodb.com/php-library/current/).
 
 Tigris MongoDB compatibility supports the MongoDB 6.0+ wire protocol, so any drivers or other components must support this version.
