@@ -29,9 +29,13 @@ And update the values with your Tigris Project Name, Client ID, and Client Secre
 
 ## Build and run using a new Docker image
 
+Build the image:
+
 ```shell
-DOCKER_BUILDKIT=0  docker build . -t tigris-mongodb-php-local
+DOCKER_BUILDKIT=0 docker build . -t tigris-mongodb-php-local
 ```
+
+Run the example:
 
 ```shell
 ./get-started-local.sh
