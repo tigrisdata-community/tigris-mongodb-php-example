@@ -21,7 +21,7 @@ echo "Dropping collections '{$_ENV["TIGRIS_PROJECT_NAME"]}.php' (command)\n";
 $databaseCollection->drop();
 $customerCollection->drop();
 
-echo "Inserting a single document\n";
+echo "Inserting single documents\n";
 $result = $databaseCollection->insertOne([
   'name' => 'MongoDB',
   'type' => 'database',
@@ -81,7 +81,6 @@ $insertManyResult = $customerCollection->insertMany($customersToInsert);
 printf("Inserted %d document(s)\n", $insertManyResult->getInsertedCount());
 
 echo "Querying customers using find()\n";
-$regex = new MongoDB\BSON\Regex('database', 'i');
 $result = $customerCollection->find(['database_id' => $tigrisId]);
 foreach ($result as $doc) {
   printf("ID: %s, Name: %s\n", $doc['_id'], $doc['name']);
