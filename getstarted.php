@@ -95,12 +95,12 @@ foreach ($result as $doc) {
 }
 
 /* Aggregation */
-// Aggregation not yet supported with Tigris MongoDB compatibility
-// printf("Aggregation result: \n");
-// $result = $collection->aggregate([
-//   [ '$group' => ['_id' => 'null', 'total' => ['$sum' => '$info.x'] ] ],
-// ]);
-// foreach ($result as $doc) {
-//     var_dump($doc);
-// }
-// printf("Finished.\n")
+// Note: Tigris MongoDB compatibility has limited aggregation support
+printf("Aggregation result: \n");
+$result = $databaseCollection->aggregate([
+  ['$sort' => ['$price.db_reads' => -1]],
+]);
+foreach ($result as $doc) {
+  var_dump($doc);
+}
+printf("Finished.\n");
